@@ -26,14 +26,14 @@ WalkvsRun|**100**|**100**|**100**|
 ---|---------|
 语言|Python3.7|
 框架|Pytorch1.6|
-IDE|Pycharm和Colab|
+IDE|Pycharm and Colab|
+设备|CPU and GPU|
 
 ## 数据集
 多元时间序列数据集, 文件为.mat格式，训练集与测试集在一个文件中，且预先定义为了测试集数据，测试集标签，训练集数据与训练集标签。 <br>
 数据集下载使用百度云盘，连接如下：<br>
   链接：https://pan.baidu.com/s/1u2HN6tfygcQvzuEK5XBa2A <br> 
   提取码：dxq6 <br>
-  复制这段内容后打开百度网盘手机App，操作更方便哦<br>
 
 ---
 
@@ -56,7 +56,7 @@ WalkvsRun|2|28|16|1918|62|
  
 ## 数据预处理
 详细数据集处理过程参看 dataset_process.py文件。<br>
-- 将数据集处理成为torch.utils.data.Dataset对象，对数据集进行处理，成员变量定义的有训练集数据，训练集标签，测试集数据，测试集标签等。<br>
+- 创建torch.utils.data.Dataset对象，在类中对数据集进行处理，其成员变量定义的有训练集数据，训练集标签，测试集数据，测试集标签等。创建torch.utils.data.DataLoader对象，生成训练过程中的mini-batch与数据集的随机shuffle<br>
 - 数据集中不同样本的Time series Length不同，处理时使用所有样本中（测试集与训练集中）**最长**的时间步作为Time series Length，使用**0**进行填充。<br>
 - 数据集处理过程中保存未添加Padding的训练集数据与测试集数据，还有测试集中最长时间步的样本列表以供探索模型使用。<br>
 - NetFlow数据集中标签为**1和13**，在使用此数据集时要对返回的标签值进行处理。<br>
@@ -64,7 +64,7 @@ WalkvsRun|2|28|16|1918|62|
 ## 超参描述
 超参|描述|
 ----|---|
-d_model|模型省略了NLP中对词的编码，仅使用一个线性层映射成d_model维的稠密向量，此外，保证在每个模块衔接的地方的维度相同|
+d_model|模型处理的为时间序列而非自然语言，所以省略了NLP中对词语的编码，仅使用一个线性层映射成d_model维的稠密向量，此外，d_model保证了在每个模块衔接的地方的维度相同|
 d_hidden|Position-wise FeedForword 中隐藏层的维度| 
 d_input|时间序列长度，其实是一个数据集中最长时间步的维度 **固定**的，直接由数据集预处理决定|
 d_channel|多元时间序列的时间通道数，即是几维的时间序列 **固定**的，直接由数据集预处理决定|
@@ -73,10 +73,10 @@ q,v|Multi-Head Attention中线性层映射维度|
 h|Multi-Head Attention中头的数量|
 N|Encoder栈中Encoder的数量|
 dropout|随机失活|
-EPOCH|训练迭代次数
+EPOCH|训练迭代次数|
 BATCH_SIZE|mini-batch size|
-LR|学习率|
-optimizer_name|优化器选择 建议Adagrad和Adam|
+LR|学习率 定义为1e-4|
+optimizer_name|优化器选择 建议**Adagrad**和Adam|
 
 ## 模型描述
 - 仅使用Encoder：由于是分类任务，模型删去传统Transformer中的decoder，**仅使用Encoder**进行分类
@@ -104,12 +104,18 @@ run_with_saved_model.py|使用训练好的模型（保存为pkl文件）测试�
 
 ## utils工具描述
 简单介绍几个
-- random_seed:用于设置随机种子，使每一次的实验结果可复现
-- heatMap.py:用于绘制双塔的score矩阵的热力图，用来分析channel与channel之间或者step与step之间的相关程度，用于比较的还有DTW矩阵和欧氏距离矩阵，用来分析决定权重分配的因素。
-- draw_line:用于绘制折线图，一般需要根据需要自定义新的函数进行绘制
-- visualization:用于绘制训练模型的loss变化曲线和accuracy变化曲线，判断是否收敛与过拟合
-- TSNE：降维聚类算法并绘制聚类图，用来评估模型特征提取的效果或者时间序列之间的相似性
+- random_seed:用于设置**随机种子**，使每一次的实验结果可复现。
+- heatMap.py:用于绘制双塔的score矩阵的**热力图**，用来分析channel与channel之间或者step与step之间的相关程度，用于比较的还有**DTW**矩阵和欧氏距离矩阵，用来分析决定权重分配的因素。
+- draw_line:用于绘制折线图，一般需要根据需要自定义新的函数进行绘制。
+- visualization:用于绘制训练模型的loss变化曲线和accuracy变化曲线，判断是否收敛与过拟合。
+- TSNE：**降维聚类算法**并绘制聚类图，用来评估模型特征提取的效果或者时间序列之间的相似性。
 
+## Tips
+- .pkl文件使用pycharm上的1.6版本的pytorch和colab上1.7的pytorch保存，若想load模型直接进行测试，需要测试使用的pytorch版本尽可能高于等于**1.6版本**。
+- 根目录文件如saved_model,reslut_figure为保存的默认路径，请勿删除或者修改名称，除非直接在源代码中对路径进行修改。
+- 请使用百度云盘提供的数据集，不同的MTS数据集文件格式不同，本数据集处理的是.mat文件。
+- utils中的工具类，在绘制彩色曲线和聚类图时，对于图中颜色的划分，由于需求不能泛化，请在函数中自行编写代码定义。
+- 优先选择GPU，没有则使用CPU。
 
-
-
+## 本人学识浅薄，代码和文字若有不当之处欢迎批评与指正！
+## 联系方式：masiyuan007@qq.com
