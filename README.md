@@ -66,5 +66,3 @@ h = W · Concat(C, S) + b <br>
 g1, g2 = Sof tmax(h) <br>
 y = Concat(C · g1, S · g2)<br>
 - 在step-wise,模型如传统Transformer一样，添加位置编码与mask机制，而在channel-wise，模型舍弃位置编码与mask，因为对于没有时间特性的channel之间，这两个机制没有实际的意义。
-
-                                                  
