@@ -61,6 +61,15 @@ WalkvsRun|2|28|16|1918|62|
 - 数据集处理过程中保存未添加Padding的训练集数据与测试集数据，还有测试集中最长时间步的样本列表以供探索模型使用。<br>
 - NetFlow数据集中标签为**1和13**，在使用此数据集时要对返回的标签值进行处理。<br>
 
+## 模型描述
+- 仅使用Encoder：由于是分类任务，模型删去传统Transformer中的decoder，**仅使用Encoder**进行分类
+- Two Tower：在不同的Step之间或者不同Channel之间，显然存在着诸多联系，传统Transformer使用Attentino机制用来关注不同的step或channel之间的相关程度，但仅选择一个进行计算。不同于CNN模型处理时间序列，它可以使用二维卷积核同时关注step-wise和channel-wise，在这里我们使**双塔**模型，即同时计算step-wise Attention和channel-wise Attention。
+- Gate机制：对于不同的数据集，不同的Attention机制有好有坏，对于双塔的特征提取的结果，简单的方法，是对两个塔的输出尽心简单的拼接，不过在这里，我们使用模型学习两个权重值，为每个塔的输出进行权重的分配，公式如下。<br>
+    `h = W · Concat(C, S) + b` <br>
+    `g1, g2 = Sof tmax(h)` <br>
+    `y = Concat(C · g1, S · g2)` <br>
+- 在step-wise,模型如传统Transformer一样，添加位置编码与mask机制，而在channel-wise，模型舍弃位置编码与mask，因为对于没有时间特性的channel之间，这两个机制没有实际的意义。
+
 ## 超参描述
 超参|描述|
 ----|---|
@@ -77,15 +86,6 @@ EPOCH|训练迭代次数|
 BATCH_SIZE|mini-batch size|
 LR|学习率 定义为1e-4|
 optimizer_name|优化器选择 建议**Adagrad**和Adam|
-
-## 模型描述
-- 仅使用Encoder：由于是分类任务，模型删去传统Transformer中的decoder，**仅使用Encoder**进行分类
-- Two Tower：在不同的Step之间或者不同Channel之间，显然存在着诸多联系，传统Transformer使用Attentino机制用来关注不同的step或channel之间的相关程度，但仅选择一个进行计算。不同于CNN模型处理时间序列，它可以使用二维卷积核同时关注step-wise和channel-wise，在这里我们使**双塔**模型，即同时计算step-wise Attention和channel-wise Attention。
-- Gate机制：对于不同的数据集，不同的Attention机制有好有坏，对于双塔的特征提取的结果，简单的方法，是对两个塔的输出尽心简单的拼接，不过在这里，我们使用模型学习两个权重值，为每个塔的输出进行权重的分配，公式如下。<br>
-h = W · Concat(C, S) + b <br>
-g1, g2 = Sof tmax(h) <br>
-y = Concat(C · g1, S · g2)<br>
-- 在step-wise,模型如传统Transformer一样，添加位置编码与mask机制，而在channel-wise，模型舍弃位置编码与mask，因为对于没有时间特性的channel之间，这两个机制没有实际的意义。
 
 ## 文件描述
 文件名称|描述|
