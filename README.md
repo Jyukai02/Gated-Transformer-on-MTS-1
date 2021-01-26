@@ -1,5 +1,5 @@
 # Gated-Transformer-on-MTS
-使用改良的Transformer模型应用于多维时间序列的分类任务上
+基于Pytorch，使用改良的Transformer模型应用于多维时间序列的分类任务上
 
 ## 实验环境
 环境|描述|
@@ -14,6 +14,7 @@ IDE|Pycharm和Colab|
   链接：https://pan.baidu.com/s/1u2HN6tfygcQvzuEK5XBa2A <br> 
   提取码：dxq6 <br>
   复制这段内容后打开百度网盘手机App，操作更方便哦<br>
+
 ### 数据集维度描述
 DataSet|Number of Classes|Size of training Set|Size of testing Set|Max Time series Length|Channel|
 -------|-----------------|--------------------|-------------------|----------------------|-------|
@@ -33,6 +34,24 @@ WalkvsRun|2|28|16|1918|62|
  
 ## 数据预处理
 详细数据集处理过程参看 dataset_process.py文件。<br>
-将数据集处理成为torch.utils.data.Dataset对象，对数据集进行处理，成员变量定义的有训练集数据，训练集标签，测试集数据，测试集标签等。<br>
-数据集中不同样本的Time series Length不同，处理时使用所有样本中（测试集与训练集中）最长的时间步作为Time series Length，使用0进行填充。<br>
+- 将数据集处理成为torch.utils.data.Dataset对象，对数据集进行处理，成员变量定义的有训练集数据，训练集标签，测试集数据，测试集标签等。<br>
+- 数据集中不同样本的Time series Length不同，处理时使用所有样本中（测试集与训练集中）最长的时间步作为Time series Length，使用0进行填充。<br>
+- 数据集处理过程中保存未添加Padding的训练集数据与测试集数据，还有测试集中最长时间步的样本列表以供探索模型使用。<br>
+- NetFlow数据集中标签为1和13，在使用此数据集时要对返回的标签值进行处理。<br>
+
+## 超参描述
+超参|描述|
+----|---|
+d_model|模型省略了NLP中对词的编码，仅使用一个线性层映射成d_model维的稠密向量，此外，保证在每个模块衔接的地方的维度相同|
+d_hidden|Position-wise FeedForword 中隐藏层的维度| 
+d_input|时间序列长度，其实是一个数据集中最长时间步的维度 固定的，直接由数据集预处理决定|
+d_channel|多元时间序列的时间通道数，即是几维的时间序列 固定的，直接由数据集预处理决定|
+d_output|分类类别数 固定的，直接由数据集预处理决定|
+q,v|Multi-Head Attention中线性层映射维度|
+h|Multi-Head Attention中头的数量|
+N|Encoder栈中Encoder的数量|
+dropout|随机失活|
+EPOCH|训练迭代次数
+BATCH_SIZE|mini-batch size|
+LR|学习率|
 
