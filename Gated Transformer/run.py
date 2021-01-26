@@ -21,16 +21,16 @@ setup_seed(30)  # 设置随机数种子
 reslut_figure_path = 'result_figure'  # 结果图像保存路径
 
 # 数据集路径选择
-# path = 'E:\\PyCharmWorkSpace\\mtsdata\\ArabicDigits\\ArabicDigits.mat' # lenth=6600  input=93 channel=13 output=10
-# path = 'E:\\PyCharmWorkSpace\\mtsdata\\AUSLAN\\AUSLAN.mat'  # lenth=1140  input=136 channel=22 output=95
-# path = 'E:\\PyCharmWorkSpace\\mtsdata\\CharacterTrajectories\\CharacterTrajectories.mat'
-# path = 'E:\\PyCharmWorkSpace\\mtsdata\\CMUsubject16\\CMUsubject16.mat'  # lenth=29,29  input=580 channel=62 output=2
-# path = 'E:\\PyCharmWorkSpace\\mtsdata\\ECG\\ECG.mat'  # lenth=100  input=152 channel=2 output=2
-path = 'E:\\PyCharmWorkSpace\\mtsdata\\JapaneseVowels\\JapaneseVowels.mat'  # lenth=270  input=29 channel=12 output=9
-# path = 'E:\\PyCharmWorkSpace\\mtsdata\\Libras\\Libras.mat'  # lenth=180  input=45 channel=2 output=15
-# path = 'E:\\PyCharmWorkSpace\\mtsdata\\UWave\\UWave.mat'  # lenth=4278  input=315 channel=3 output=8
-# path = 'E:\\PyCharmWorkSpace\\mtsdata\\KickvsPunch\\KickvsPunch.mat'  # lenth=10  input=841 channel=62 output=2
-# path = 'E:\\PyCharmWorkSpace\\mtsdata\\NetFlow\\NetFlow.mat'  # lenth=803  input=997 channel=4 output=只有1和13
+# path = '数据集根目录\\ArabicDigits\\ArabicDigits.mat' # lenth=6600  input=93 channel=13 output=10
+# path = '数据集根目录\\AUSLAN\\AUSLAN.mat'  # lenth=1140  input=136 channel=22 output=95
+# path = '数据集根目录\\CharacterTrajectories\\CharacterTrajectories.mat'
+# path = '数据集根目录\\CMUsubject16\\CMUsubject16.mat'  # lenth=29,29  input=580 channel=62 output=2
+# path = '数据集根目录\\ECG\\ECG.mat'  # lenth=100  input=152 channel=2 output=2
+# path = '数据集根目录\\JapaneseVowels\\JapaneseVowels.mat'  # lenth=270  input=29 channel=12 output=9
+# path = '数据集根目录\\Libras\\Libras.mat'  # lenth=180  input=45 channel=2 output=15
+# path = '数据集根目录\\UWave\\UWave.mat'  # lenth=4278  input=315 channel=3 output=8
+# path = '数据集根目录\\KickvsPunch\\KickvsPunch.mat'  # lenth=10  input=841 channel=62 output=2
+path = '数据集根目录\\NetFlow\\NetFlow.mat'  # lenth=803  input=997 channel=4 output=只有1和13
 
 test_interval = 5  # 测试间隔 单位：epoch
 draw_key = 1  # 大于等于draw_key才会保存图像
