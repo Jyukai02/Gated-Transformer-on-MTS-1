@@ -4,9 +4,9 @@
 # y.shape  #输出(1000,)对应每个样本的真实标签
 from dataset_process.dataset_process import MyDataset
 
-# path = 'E:\\PyCharmWorkSpace\\mtsdata\\ECG\\ECG.mat'  # lenth=100  input=152 channel=2 output=2
-# path = 'E:\\PyCharmWorkSpace\\mtsdata\\JapaneseVowels\\JapaneseVowels.mat'  # lenth=270  input=29 channel=12 output=9
-path = 'E:\\PyCharmWorkSpace\\mtsdata\\KickvsPunch\\KickvsPunch.mat'  # lenth=10  input=841 channel=62 output=2
+# path = '数据集根目录\\mtsdata\\ECG\\ECG.mat'  # lenth=100  input=152 channel=2 output=2
+# path = '数据集根目录\\mtsdata\\JapaneseVowels\\JapaneseVowels.mat'  # lenth=270  input=29 channel=12 output=9
+path = '数据集根目录\\mtsdata\\KickvsPunch\\KickvsPunch.mat'  # lenth=10  input=841 channel=62 output=2
 
 
 
