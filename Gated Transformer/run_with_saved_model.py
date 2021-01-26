@@ -32,7 +32,7 @@ DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # 选择要跑的模型
 save_model_path = 'saved_model/ECG 91.0 batch=2.pkl'
 file_name = save_model_path.split('/')[-1].split(' ')[0]
-path = f'E:\\PyCharmWorkSpace\\mtsdata\\{file_name}\\{file_name}.mat'  # 拼装数据集路径
+path = f'数据集根目录\\{file_name}\\{file_name}.mat'  # 拼装数据集路径
 
 # 绘制HeatMap的命名准备工作
 ACCURACY = save_model_path.split('/')[-1].split(' ')[1]  # 使用的模型的准确率
