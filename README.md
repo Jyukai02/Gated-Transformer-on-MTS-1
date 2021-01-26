@@ -1,6 +1,26 @@
 # Gated-Transformer-on-MTS
 基于Pytorch，使用改良的Transformer模型应用于多维时间序列的分类任务上
 
+## 实验结果
+对比模型选择 Fully Convolutional Networks (FCN) and Residual Net works (ResNet) <br>
+引用：[Wang et al., 2017] Z. Wang, W. Yan, and T. Oates. Time series classification from scratch with deep neural networks:A strong baseline. In 2017 International Joint Conference on Neural Networks (IJCNN), pages 1578–1585, 2017.
+
+DataSet|FCN|ResNet|Gated Transformer|
+-------|---|------|-----------------|
+ArabicDigits|99.4|**99.6**|98.8|
+AUSLAN|**97.5**|97.4|**97.5**|
+CharacterTrajectories|**99.0**|**99.0**|97.0|
+CMUsubject16|**100**|99.7|**100**|
+ECG|87.2|86.7|**91**|
+JapaneseVowels|**99.3**|99.2|98.7|
+Libras|**96.4**|95.4|88.9|
+UWave|**93.4**|92.6|91.0|
+KickvsPunch|54.0|51.0|**90.0**|
+NetFlow|89.1|62.7|**100**|
+PEMS|-|-|93.6|
+Wafer|98.2|98.9|**99.1**|
+WalkvsRun|**100**|**100**|**100**|
+
 ## 实验环境
 环境|描述|
 ---|---------|
@@ -66,3 +86,20 @@ h = W · Concat(C, S) + b <br>
 g1, g2 = Sof tmax(h) <br>
 y = Concat(C · g1, S · g2)<br>
 - 在step-wise,模型如传统Transformer一样，添加位置编码与mask机制，而在channel-wise，模型舍弃位置编码与mask，因为对于没有时间特性的channel之间，这两个机制没有实际的意义。
+
+## 文件描述
+文件名称|描述|
+-------|----|
+dataset_process|数据集处理|
+font|存储字体，用于结果图中的文字|
+gather_figure|聚类结果图|
+heatmap_figure_in_test|测试模型时绘制的score矩阵的热力图|
+module|模型的各个模块|
+mytest|各种测试代码|
+reslut_figure|准确率结果图|
+saved_model|保存的pkl文件|
+utils|工具类文件|
+run.py|训练模型|
+run_with_saved_model.py|使用训练好的模型（保存为pkl文件）测试结果|
+
+
