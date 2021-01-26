@@ -188,7 +188,7 @@ def heatMap_score(matrix_input, matrix_channel, file_name, EPOCH):
 
 
 if __name__ == '__main__':
-    path = 'E:\\PyCharmWorkSpace\\mtsdata\\JapaneseVowels\\JapaneseVowels.mat'  # lenth=270  input=29 channel=12 output=9
+    path = '数据集根目录\\JapaneseVowels\\JapaneseVowels.mat'  # lenth=270  input=29 channel=12 output=9
 
     dataset = MyDataset(path, 'train')
     train_dataset = dataset.train_dataset
