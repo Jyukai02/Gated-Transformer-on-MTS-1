@@ -102,4 +102,14 @@ utils|工具类文件|
 run.py|训练模型|
 run_with_saved_model.py|使用训练好的模型（保存为pkl文件）测试结果|
 
+## utils工具描述
+简单介绍几个
+- random_seed:用于设置随机种子，使每一次的实验结果可复现
+- heatMap.py:用于绘制双塔的score矩阵的热力图，用来分析channel与channel之间或者step与step之间的相关程度，用于比较的还有DTW矩阵和欧氏距离矩阵，用来分析决定权重分配的因素。
+- draw_line:用于绘制折线图，一般需要根据需要自定义新的函数进行绘制
+- visualization:用于绘制训练模型的loss变化曲线和accuracy变化曲线，判断是否收敛与过拟合
+- TSNE：降维聚类算法并绘制聚类图，用来评估模型特征提取的效果或者时间序列之间的相似性
+
+
+
 
