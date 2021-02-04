@@ -120,3 +120,5 @@ run_with_saved_model.py|使用训练好的模型（保存为pkl文件）测试�
 
 ## 本人学识浅薄，代码和文字若有不当之处欢迎批评与指正！
 ## 联系方式：masiyuan007@qq.com
+
+![Image text]('images/image.png')
