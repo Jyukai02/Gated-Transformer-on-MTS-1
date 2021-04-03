@@ -18,7 +18,7 @@ from utils.visualization import result_visualization
 # from mytest.gather.main import draw
 
 setup_seed(30)  # 设置随机数种子
-reslut_figure_path = 'result_figure'  # 结果图像保存路径
+reslut_figure_path = 'result_figure'  # 结果图像保
 
 # 数据集路径选择
 # path = '数据集根目录\\ArabicDigits\\ArabicDigits.mat' # lenth=6600  input=93 channel=13 output=10
